@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<section class="welcome">
+  <h1>Welcome, {{ g.user.username }}</h1>
+  <span class="badge ok">Authenticated</span>
+</section>
+
+<section class="grid">
+  <div class="card">
+    <h3>Account information</h3>
+    <div class="kv"><span>Full name</span><strong>{{ g.user.full_name }}</strong></div>
+    <div class="kv"><span>Username</span><strong>{{ g.user.username }}</strong></div>
+    <div class="kv"><span>Email</span><strong>{{ g.user.email }}</strong></div>
+    <div class="kv"><span>Member since</span><strong>{{ g.user.created_at }}</strong></div>
+  </div>
+
+  <div class="card">
+    <h3>Authentication status</h3>
+    <div class="kv"><span>Status</span><strong class="good">Logged in</strong></div>
+    <div class="kv"><span>This login</span><strong>{{ g.user.last_login }}</strong></div>
+    <div class="kv"><span>Previous login</span><strong>{{ prev_login or "First login" }}</strong></div>
+    <div class="kv"><span>Idle timeout</span><strong>30 minutes</strong></div>
+  </div>
+
+  <div class="card">
+    <h3>Security information</h3>
+    <div class="kv"><span>Password storage</span><strong>{{ algorithm }} hash + salt</strong></div>
+    <div class="kv"><span>Session cookie</span><strong>HttpOnly, SameSite=Lax</strong></div>
+    <div class="kv"><span>Forms</span><strong>CSRF protected</strong></div>
+    <div class="kv"><span>Login attempts</span><strong>Rate limited</strong></div>
+  </div>
+</section>
+
+<form method="post" action="{{ url_for('logout') }}" class="actions">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <a class="btn btn-ghost" href="{{ url_for('settings') }}">Account settings</a>
+  <button class="btn btn-primary" type="submit">Log out</button>
+</form>
+{% endblock %}

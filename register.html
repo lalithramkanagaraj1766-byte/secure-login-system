@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+{% block main_class %}narrow{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>Create your account</h2>
+  <p class="muted">Use a strong password: 8+ characters with upper and lower case letters, a number and a symbol.</p>
+  <form method="post" action="{{ url_for('register') }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label for="full_name">Full name</label>
+    <input id="full_name" name="full_name" type="text" maxlength="60" required autocomplete="name" value="{{ form.full_name }}">
+    <label for="username">Username</label>
+    <input id="username" name="username" type="text" minlength="3" maxlength="20" required autocomplete="username" value="{{ form.username }}">
+    <label for="email">Email address</label>
+    <input id="email" name="email" type="email" maxlength="120" required autocomplete="email" value="{{ form.email }}">
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" minlength="8" maxlength="128" required autocomplete="new-password" data-strength>
+    <div id="strength" class="strength"></div>
+    <label for="confirm_password">Confirm password</label>
+    <input id="confirm_password" name="confirm_password" type="password" maxlength="128" required autocomplete="new-password">
+    <button class="btn btn-primary btn-block" type="submit">Create account</button>
+  </form>
+  <p class="muted center">Already registered? <a href="{{ url_for('login') }}">Log in</a></p>
+</div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Settings{% endblock %}
+{% block content %}
+<h1>Account settings</h1>
+<section class="grid">
+  <div class="card">
+    <h3>Account details</h3>
+    <div class="kv"><span>Full name</span><strong>{{ g.user.full_name }}</strong></div>
+    <div class="kv"><span>Username</span><strong>{{ g.user.username }}</strong></div>
+    <div class="kv"><span>Email</span><strong>{{ g.user.email }}</strong></div>
+    <div class="kv"><span>Member since</span><strong>{{ g.user.created_at }}</strong></div>
+  </div>
+
+  <div class="card">
+    <h3>Change password</h3>
+    <form method="post" action="{{ url_for('settings') }}">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <label for="current_password">Current password</label>
+      <input id="current_password" name="current_password" type="password" maxlength="128" required autocomplete="current-password">
+      <label for="new_password">New password</label>
+      <input id="new_password" name="new_password" type="password" minlength="8" maxlength="128" required autocomplete="new-password" data-strength>
+      <div id="strength" class="strength"></div>
+      <label for="confirm_password">Confirm new password</label>
+      <input id="confirm_password" name="confirm_password" type="password" maxlength="128" required autocomplete="new-password">
+      <button class="btn btn-primary btn-block" type="submit">Save new password</button>
+    </form>
+  </div>
+</section>
+{% endblock %}

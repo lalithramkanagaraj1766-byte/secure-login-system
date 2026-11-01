@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<section class="hero">
+  <h1>Secure Login System</h1>
+  <p class="lead">A web app that shows how modern authentication keeps user accounts safe from common attacks.</p>
+  <div class="cta">
+    {% if g.user %}
+      <a class="btn btn-primary" href="{{ url_for('dashboard') }}">Open dashboard</a>
+    {% else %}
+      <a class="btn btn-primary" href="{{ url_for('register') }}">Create account</a>
+      <a class="btn btn-ghost" href="{{ url_for('login') }}">Log in</a>
+    {% endif %}
+  </div>
+</section>
+
+<section class="grid">
+  <div class="card"><h3>Hashed passwords</h3><p>Passwords are salted and hashed with scrypt through Werkzeug. The original password is never stored.</p></div>
+  <div class="card"><h3>SQL injection defence</h3><p>Every database query is parameterized, so user input is treated as data and never as SQL code.</p></div>
+  <div class="card"><h3>Protected sessions</h3><p>HttpOnly, SameSite cookies, a 30-minute idle timeout and a fully cleared session on logout.</p></div>
+  <div class="card"><h3>Attack prevention</h3><p>CSRF tokens on every form, login rate limiting and generic error messages that reveal nothing.</p></div>
+</section>
+{% endblock %}
